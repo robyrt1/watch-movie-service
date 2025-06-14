@@ -1,6 +1,8 @@
+import { CacheModule } from '@nestjs/cache-manager';
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config'; // Importe ConfigService
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { RedisOptions } from './movies/infrastructure/cache/redis.manager';
 import { MovieOrmEntity } from './movies/infrastructure/persistence/entities/movie.orm-entity';
 import { MoviesModule } from './movies/movies.module';
 @Module({
@@ -26,6 +28,7 @@ import { MoviesModule } from './movies/movies.module';
     inject: [ConfigService],
 
   }),
+  CacheModule.registerAsync(RedisOptions),
     MoviesModule
   ],
   controllers: [],
